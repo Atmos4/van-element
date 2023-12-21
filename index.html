@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Van Element</title>
+  <script type="module" src="/src/showcase.ts"></script>
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    html {
+      font-size: 1.2em;
+      width: min(100% - 3rem, 80ch);
+      margin: 2rem auto;
+      background: #bbbbbb10;
+      font-family: system-ui;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    h4::before {
+      content: "🟢";
+    }
+  </style>
+</head>
+<body>
+  <h1>Van Element showcase</h1>
+
+  <h4>Theme switch</h4>
+  <theme-switch></theme-switch>
+  <h4>Dynamic attribute injection</h4>
+  <p>Here is
+    <font-preview size="6" color="orange">a Van Element in HTML</font-preview>
+  </p>
+  <p>It can be used inside other Van Elements:</p>
+  <demo-component></demo-component>
+
+  <h4>Modal</h4>
+  <custom-modal>
+    <button slot="open-button">Open me!</button>
+    <h1>Hello there!</h1>
+    <p>I am a custom modal 🎉 thanks to the <code>dialog</code> HTML element, page focus is trapped inside my boundaries
+      now 🎉</p>
+    <p>To close me you can</p>
+    <ul>
+      <li>click the ❌</li>
+      <li>click outside</li>
+      <li>press <code>ESC</code>
+      </li>
+    </ul>
+  </custom-modal>
+  <h4>Tabs</h4>
+  <tab-panel>
+    <p slot="tab">How is it going? I am just a casual tab</p>
+    <p>Pretty cool right?</p>
+    <p data-tab="Custom tab name">Look, the name of the tab can be whatever we want!</p>
+    <article>
+      <p>The tab content can be any HTML element.</p>
+      <details>
+        <summary>And the content itself can be other html elements or even Van Elements!</summary>
+        <font-preview size="12" color="cyan">How cool is that</font-preview>
+      </details>
+    </article>
+  </tab-panel>
+</body>
+</html>

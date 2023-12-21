@@ -1,0 +1,27 @@
+{
+  "name": "vanjs-element",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Web components with VanJS",
+  "files": [
+    "src/van-element.js",
+    "src/van-element.d.ts"
+  ],
+  "main": "./src/van-element.js",
+  "browser": "./src/van-element.js",
+  "exports": {
+    ".": "./src/van-element.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vanjs-core": "^1.2.6"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0"
+  }
+}
