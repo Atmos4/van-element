@@ -4,14 +4,17 @@ export function define(name, element, options) {
   window.customElements.define(
     name,
     class extends HTMLElement {
-      attrs = {};
-      static observedAttributes = options?.observed ?? [];
+      static observedAttributes = options?.observed;
       constructor() {
         super();
+        this.attrs = {};
+        this.dismount;
       }
       connectedCallback() {
         for (let a of this.attributes) {
-          this.attrs[a.name] = van.state(a.value);
+          this.attrs[
+            a.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
+          ] = van.state(a.value);
         }
         let mount;
         van.add(
@@ -22,10 +25,13 @@ export function define(name, element, options) {
             element: this,
           })
         );
-        mount?.(this);
+        this.dismount = mount?.();
       }
       attributeChangedCallback(name, _, newValue) {
         if (this.attrs[name]) this.attrs[name].val = newValue;
+      }
+      disconnectedCallback() {
+        this.dismount?.();
       }
     }
   );
