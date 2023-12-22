@@ -1,34 +1,44 @@
 import van from "vanjs-core";
 import { define } from "./van-element";
 
-const { button, dialog, input, option, select, slot, span, style, div, p } =
-  van.tags;
+const {
+  button,
+  dialog,
+  input,
+  option,
+  select,
+  slot,
+  span,
+  style,
+  div,
+  p,
+  pre,
+} = van.tags;
 
-define(
-  "theme-switch",
-  () => {
-    const darkMode = van.state(
-      window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-    );
-    van.derive(() => {
-      document
-        .querySelector('meta[name="color-scheme"]')
-        ?.setAttribute("content", darkMode.val ? "dark" : "light");
-    });
-    return [
-      button(
-        {
-          style: "font-size: 1.2em",
-          onclick: () => (darkMode.val = !darkMode.val),
-        },
-        () => (darkMode.val ? "☀️" : "😎")
-      ),
-      () => ` Toggle ${darkMode.val ? "light" : "dark"} mode`,
-    ];
-  },
-  { disableShadow: true }
-);
+define("theme-switch", () => {
+  const mode = localStorage.getItem("colorScheme");
+  const darkMode = van.state(
+    (mode && mode === "dark") ??
+      window.matchMedia?.("(prefers-color-scheme: dark)").matches
+  );
+  van.derive(() => {
+    const mode = darkMode.val ? "dark" : "light";
+    document
+      .querySelector('meta[name="color-scheme"]')
+      ?.setAttribute("content", mode);
+    localStorage.setItem("colorScheme", mode);
+  });
+  return [
+    button(
+      {
+        style: "font-size: 1.2em",
+        onclick: () => (darkMode.val = !darkMode.val),
+      },
+      () => (darkMode.val ? "☀️" : "😎")
+    ),
+    () => ` Toggle ${darkMode.val ? "light" : "dark"} mode`,
+  ];
+});
 
 define(
   "font-preview",
@@ -43,33 +53,76 @@ define(
   { observed: ["size", "color"] }
 );
 
-define(
-  "demo-component",
-  () => {
-    const size = van.state(10),
-      color = van.state("green");
-    return span(
-      "Size: ",
-      input({
-        type: "range",
-        min: 5,
-        max: 20,
-        value: size,
-        oninput: (e) => (size.val = e.target.value),
-      }),
-      " Color: ",
-      select(
-        { oninput: (e) => (color.val = e.target.value), value: color },
-        ["green", "black", "blue", "red", "brown"].map((c) =>
-          option({ value: c }, c)
-        )
+const animals = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯"];
+
+function getRandomAnimal() {
+  return animals[Math.floor(Math.random() * animals.length)];
+}
+
+define("mount-demo", ({ onMount, element: el }) => {
+  const animal = getRandomAnimal();
+  onMount(() => {
+    const parent = el.parentElement?.getElementsByTagName("pre")?.[0];
+    parent?.append(div(`${animal} mounted`));
+    return () => {
+      parent?.append(div(`${animal} dismounted`));
+    };
+  });
+  return div(`${animal} `, button({ onclick: () => el.remove() }, "💀"));
+});
+
+define("mount-showcase", ({ element: el, onMount }) => {
+  const console = pre({ slot: "console" });
+  onMount(() => {
+    van.add(el, console);
+  });
+  return div(
+    {
+      style:
+        "display:grid;grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));gap:1rem",
+    },
+    style("button{font:inherit}"),
+    div(
+      button(
+        { onclick: () => el.append(van.tags["mount-demo"]()) },
+        "Add animal"
       ),
-      " ",
-      van.tags["font-preview"]({ size: size, color: color }, "Hello 🍦VanJS")
-    );
-  },
-  { disableShadow: true }
-);
+      slot()
+    ),
+    div(
+      "Console: ",
+      button({ onclick: () => (console.textContent = "") }, "Clear"),
+      slot({ name: "console" })
+    )
+  );
+});
+
+define("demo-component", () => {
+  const size = van.state(10),
+    color = van.state("green");
+  return span(
+    "Size: ",
+    input({
+      type: "range",
+      min: 5,
+      max: 20,
+      value: size,
+      oninput: (e) => (size.val = e.target.value),
+    }),
+    " Color: ",
+    select(
+      {
+        oninput: (e) => (color.val = e.target.value),
+        value: color,
+        style: "font:inherit",
+      },
+      ["green", "black", "blue", "red", "brown"].map((c) =>
+        option({ value: c }, c)
+      )
+    ),
+    div(van.tags["font-preview"]({ size: size, color: color }, "Hello 🍦VanJS"))
+  );
+});
 
 define("custom-modal", () => {
   const modal = dialog(
@@ -78,7 +131,7 @@ define("custom-modal", () => {
       onclick: (e) => e.target === modal && modal.close(),
     },
     div(
-      { style: "padding: 1em;position:relative" },
+      { style: "padding:1rem 2rem;position:relative" },
       button(
         {
           onclick: () => modal.close(),
@@ -108,21 +161,32 @@ define("custom-modal", () => {
             transform: scale(0.5);
         }
     }
-    dialog::backdrop{backdrop-filter: blur(4px)}
+    dialog::backdrop {
+      background-color: rgb(0 0 0 / 0);
+      transition: all 0.2s allow-discrete;
+    }
+    dialog[open]::backdrop {
+      background-color: rgb(0 0 0 / 0.25);
+    }
+    @starting-style {
+      dialog[open]::backdrop {
+        background-color: rgb(0 0 0 / 0);
+      }
+    }
     `),
     slot({ name: "open-button", onclick: () => modal.showModal() }),
     modal,
   ];
 });
 
-define("tab-panel", ({ onMount }) => {
+define("tab-panel", ({ onMount, element: el }) => {
   const tabButtons = div({
     style: "display:flex;gap:0.2rem",
   });
   const selectedTab = van.state("");
   const tabContent = slot({ name: "tab" }, p("No tab selected"));
-  onMount((dom) =>
-    Array.from(dom.children).forEach((p, i) => {
+  onMount(() =>
+    Array.from(el.children).forEach((p, i) => {
       const tabTitle = p.getAttribute("data-tab") || `Tab ${i + 1}`;
       if (p.getAttribute("slot")) {
         selectedTab.val = tabTitle;
