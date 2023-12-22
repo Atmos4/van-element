@@ -2,20 +2,21 @@
   "name": "vanjs-element",
   "author": "Atmos4",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "type": "module",
   "description": "Web components with VanJS",
   "files": [
     "dist",
     "types"
   ],
-  "types": "types/van-element.d.ts",
-  "main": "./dist/van-element.umd.js",
-  "module": "./dist/van-element.js",
+  "types": "./dist/van-element.d.ts",
+  "main": "./dist/van-element.umd.min.js",
+  "module": "./dist/van-element.min.js",
   "exports": {
     ".": {
-      "import": "./dist/van-element.js",
-      "require": "./dist/van-element.umd.js"
+      "import": "./dist/van-element.min.js",
+      "require": "./dist/van-element.umd.min.js",
+      "types": "./dist/van-element.d.ts"
     }
   },
   "keywords": [
@@ -32,7 +33,8 @@
   },
   "devDependencies": {
     "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.6.4"
   },
   "repository": {
     "type": "git",
