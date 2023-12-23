@@ -40,17 +40,14 @@ define("theme-switch", () => {
   ];
 });
 
-define(
-  "font-preview",
-  ({ size, color }) =>
-    span(
-      {
-        style: () =>
-          `font-size: ${Number(size.val) / 8}em; color: ${color.val};`,
-      },
-      slot()
-    ),
-  { observed: ["size", "color"] }
+define("font-preview", ({ attr }) =>
+  span(
+    {
+      style: () =>
+        `font-size: ${Number(attr("size")) / 8}em; color: ${attr("color")};`,
+    },
+    slot()
+  )
 );
 
 const animals = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯"];
@@ -59,22 +56,22 @@ function getRandomAnimal() {
   return animals[Math.floor(Math.random() * animals.length)];
 }
 
-define("mount-demo", ({ onMount, element: el }) => {
+define("mount-demo", ({ mount, $this }) => {
   const animal = getRandomAnimal();
-  onMount(() => {
-    const parent = el.parentElement?.getElementsByTagName("pre")?.[0];
+  mount(() => {
+    const parent = $this.parentElement?.getElementsByTagName("pre")?.[0];
     parent?.append(div(`${animal} mounted`));
     return () => {
       parent?.append(div(`${animal} dismounted`));
     };
   });
-  return div(`${animal} `, button({ onclick: () => el.remove() }, "💀"));
+  return div(animal, " ", button({ onclick: () => $this.remove() }, "💀"));
 });
 
-define("mount-showcase", ({ element: el, onMount }) => {
+define("mount-showcase", ({ $this, mount }) => {
   const console = pre({ slot: "console" });
-  onMount(() => {
-    van.add(el, console);
+  mount(() => {
+    van.add($this, console);
   });
   return div(
     {
@@ -84,7 +81,7 @@ define("mount-showcase", ({ element: el, onMount }) => {
     style("button{font:inherit}"),
     div(
       button(
-        { onclick: () => el.append(van.tags["mount-demo"]()) },
+        { onclick: () => $this.append(van.tags["mount-demo"]()) },
         "Add animal"
       ),
       slot()
@@ -179,14 +176,14 @@ define("custom-modal", () => {
   ];
 });
 
-define("tab-panel", ({ onMount, element: el }) => {
+define("tab-panel", ({ mount, $this }) => {
   const tabButtons = div({
     style: "display:flex;gap:0.2rem",
   });
   const selectedTab = van.state("");
   const tabContent = slot({ name: "tab" }, p("No tab selected"));
-  onMount(() =>
-    Array.from(el.children).forEach((p, i) => {
+  mount(() =>
+    Array.from($this.children).forEach((p, i) => {
       const tabTitle = p.getAttribute("data-tab") || `Tab ${i + 1}`;
       if (p.getAttribute("slot")) {
         selectedTab.val = tabTitle;

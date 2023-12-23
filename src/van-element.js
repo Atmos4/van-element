@@ -1,34 +1,30 @@
 import van from "vanjs-core";
 
-export function define(name, element, options) {
+function define(name, element, shadow = true) {
   window.customElements.define(
     name,
     class extends HTMLElement {
-      static observedAttributes = options?.observed;
       constructor() {
         super();
         this.attrs = {};
         this.dismount;
       }
+      setAttribute(name, value) {
+        super.setAttribute(name, value);
+        this.attrs[name] && (this.attrs[name].val = value);
+      }
       connectedCallback() {
-        for (let a of this.attributes) {
-          this.attrs[
-            a.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
-          ] = van.state(a.value);
-        }
         let mount;
         van.add(
-          options?.disableShadow ? this : this.attachShadow({ mode: "open" }),
+          shadow ? this.attachShadow({ mode: "open" }) : this,
           element({
-            ...this.attrs,
-            onMount: (m) => (mount = m),
-            element: this,
+            attr: (a) =>
+              van.val((this.attrs[a] ??= van.state(this.getAttribute(a)))),
+            mount: (m) => (mount = m),
+            $this: this,
           })
         );
         this.dismount = mount?.();
-      }
-      attributeChangedCallback(name, _, newValue) {
-        if (this.attrs[name]) this.attrs[name].val = newValue;
       }
       disconnectedCallback() {
         this.dismount?.();
@@ -36,3 +32,5 @@ export function define(name, element, options) {
     }
   );
 }
+
+export { define };

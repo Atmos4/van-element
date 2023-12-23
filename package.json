@@ -2,21 +2,23 @@
   "name": "vanjs-element",
   "author": "Atmos4",
   "license": "MIT",
-  "version": "0.1.4",
+  "version": "0.2.1",
   "type": "module",
   "description": "Web components with VanJS",
   "files": [
     "dist",
     "types"
   ],
-  "types": "./dist/van-element.d.ts",
-  "main": "./dist/van-element.umd.min.js",
-  "module": "./dist/van-element.min.js",
+  "main": "./dist/van-element.browser.js",
+  "browser": "./dist/van-element.browser.js",
+  "module": "./dist/van-element.js",
+  "types": "./types/van-element.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/van-element.min.js",
-      "require": "./dist/van-element.umd.min.js",
-      "types": "./dist/van-element.d.ts"
+      "types": "./types/van-element.d.ts",
+      "import": "./dist/van-element.js",
+      "require": "./dist/van-element.umd.cjs",
+      "browser": "./dist/van-element.browser.js"
     }
   },
   "keywords": [
@@ -25,16 +27,22 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/build.js",
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "vanjs-core": "^1.2.6"
+    "vanjs-core": "^1.2.7"
   },
   "devDependencies": {
+    "gzip-size": "^7.0.0",
+    "chalk": "^5.3.0",
+    "terser": "^5.26.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
-    "vite-plugin-dts": "^3.6.4"
+    "vitepress": "1.0.0-rc.32"
   },
   "repository": {
     "type": "git",
