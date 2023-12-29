@@ -36,7 +36,7 @@ import { define } from "vanjs-element";
 
 ### Browser
 
-Since Van Element doesn't require a build step, it can be loaded from a CDN or stored in a local file ([download on jsDelivr](https://cdn.jsdelivr.net/npm/vanjs-element@0.1.5/dist/)).
+Since Van Element doesn't require a build step, it can be loaded from a CDN or stored in a local file ([download on jsDelivr](https://www.jsdelivr.com/package/npm/vanjs-element)).
 
 ::: code-group
 
