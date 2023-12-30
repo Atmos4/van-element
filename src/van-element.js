@@ -6,7 +6,7 @@ function define(name, element, shadow = true) {
     class extends HTMLElement {
       constructor() {
         super();
-        this.attrs = {};
+        this.attrs = [];
         this.dismount;
       }
       setAttribute(name, value) {
@@ -19,7 +19,7 @@ function define(name, element, shadow = true) {
           shadow ? this.attachShadow({ mode: "open" }) : this,
           element({
             attr: (a) =>
-              van.val((this.attrs[a] ??= van.state(this.getAttribute(a)))),
+              (this.attrs[a] ??= van.state(this.getAttribute(a))).val,
             mount: (m) => (mount = m),
             $this: this,
           })
