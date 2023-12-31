@@ -1,4 +1,3 @@
-// ts-ignore
 import van from "vanjs-core";
 import { define } from "../src/van-element";
 
@@ -91,12 +90,10 @@ define("observed-parent", () => {
 // #endregion observed
 
 // #region slots
-
 define("slot-demo", () => p("Hello ", slot()));
 // #endregion slots
 
 // #region slotsNames
-
 define("slot-names", () =>
   div(
     h2(slot({ name: "title" })), // Named slot // [!code highlight]
@@ -105,3 +102,21 @@ define("slot-names", () =>
   )
 );
 // #endregion slotsNames
+
+// #region mountExample
+define("connect-example", () => {
+  const dom = slot();
+  return div(dom, pre("Items in slot - ", dom.assignedElements().length));
+});
+// #endregion mountExample
+
+// #region mountShowcase
+define("mount-showcase", ({ mount }) => {
+  const dom = slot();
+  const slotCount = van.state(dom.assignedElements().length);
+  mount(() => {
+    slotCount.val = dom.assignedElements().length;
+  });
+  return div(dom, pre("Items in slot - ", slotCount));
+});
+// #endregion mountShowcase

@@ -45,6 +45,7 @@ export default defineConfig({
           { text: "Lifecycle", link: "lifecycle" },
         ],
       },
+      { text: "Examples", link: "examples" },
     ],
 
     socialLinks: [
