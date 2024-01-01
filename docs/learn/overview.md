@@ -12,8 +12,8 @@ The core `define` method can take up to 3 arguments:
 The provided VanJS method will be provided with 3 properties:
 
 - `attr()`  
-  A method to retrieve the value of a given attribute. [Learn more about `attr`](./attributes).
+  Method to [retrieve the value of a given attribute](./attributes).
 - `mount()`  
-  A Lifecycle hook to register `mount` and `dismount` callbacks. [Learn more about lifecycle](./lifecycle).
+  Lifecycle hook to [register `mount` and `dismount` callbacks](./lifecycle).
 - `$this`  
   Refers to the instance of the Van Element.

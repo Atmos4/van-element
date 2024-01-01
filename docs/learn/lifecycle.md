@@ -1,6 +1,6 @@
 # Lifecycle
 
-Sometimes, you want to execute code only when a Van Element has mounted to the DOM. The most typical use case is when you try to access `assignedElements` from a slot:
+Sometimes, you want to execute code only when a Van Element has connected to the DOM. The most typical use case is when you try to access `assignedElements` from a slot:
 
 <<< @/components.ts#mountExample
 
@@ -13,7 +13,7 @@ Sometimes, you want to execute code only when a Van Element has mounted to the D
     <connect-example><p>I am in the slot</p></connect-example>
 </fieldset>
 
-Here, the number of items in the slot is `0` :thinking: that is because slots will only get populated _after_ the Web Component has mounted. And that happens right after we have defined our Van Element...
+Here, the number of items in the slot is `0` :thinking: that is because slots will only get populated _after_ the Web Component has mounted.
 
 ## `mount`
 
@@ -32,7 +32,7 @@ Fortunately, we can define a `mount` callback:
 
 ## `dismount`
 
-The `mount` function can return another callback that triggers when the component is dismounted
+The `mount` function can return another callback that triggers when the component is dismounted.
 
 ```js
 mount(() => {

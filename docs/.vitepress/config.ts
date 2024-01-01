@@ -34,6 +34,7 @@ export default defineConfig({
           { text: "Basic Usage", link: "basic-usage" },
         ],
       },
+      { text: "Examples", link: "examples" },
       {
         text: "Learn",
         base: "/learn/",
@@ -41,11 +42,18 @@ export default defineConfig({
         items: [
           { text: "Overview", link: "overview" },
           { text: "Attributes", link: "attributes" },
-          { text: "Slots", link: "slots" },
           { text: "Lifecycle", link: "lifecycle" },
         ],
       },
-      { text: "Examples", link: "examples" },
+      {
+        text: "Advanced",
+        base: "/advanced/",
+        collapsed: false,
+        items: [
+          { text: "Slots", link: "slots" },
+          { text: "Styles", link: "styles" },
+        ],
+      },
     ],
 
     socialLinks: [

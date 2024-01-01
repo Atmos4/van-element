@@ -1,5 +1,13 @@
 # Basic usage
 
+::: info
+
+This page is under construction. The plan is to turn it into a tutorial instead.
+
+Contributions are welcomed! 🙂
+
+::::
+
 Define a Van Element in javascript
 
 <<< @/components.ts#basic {javascript}
@@ -30,4 +38,9 @@ Let's turn VanJS's [fun hello world minigame](https://vanjs.org/start#test-it-ou
 
 :::
 
-Pretty cool right? You could stop right
+## What next?
+
+You could:
+
+- check out the [examples](../examples) (_under construction_)
+- [learn more](../learn/overview) about the API

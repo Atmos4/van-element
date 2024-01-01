@@ -1,6 +1,6 @@
 # Attributes
 
-You can retrieve attributes with the provided `attr` method.
+You can retrieve attributes with the provided `attr` method. It takes an attribute name and an optional default value and returns a VanJS `State` object.
 
 Example:
 
@@ -9,54 +9,47 @@ Example:
 ```html
 <attributes-demo name="Bob"></attributes-demo>
 <attributes-demo name="Jimmy"></attributes-demo>
+<!-- default value -->
+<attributes-demo></attributes-demo>
 ```
 
 <fieldset>
     <legend>Result</legend>
     <attributes-demo name="Bob"></attributes-demo>
     <attributes-demo name="Jimmy"></attributes-demo>
+    <attributes-demo></attributes-demo>
 </fieldset>
 
 ::: tip Note
 
-This method is a wrapper around `van.val` and `van.state`. Because of this, you will need to use [state derivation](https://vanjs.org/tutorial#state-derived-prop) in places you want to be reactive.
+This method is a wrapper around `van.state`. Because of this, you will need to use [state derivation](https://vanjs.org/tutorial#state-derived-prop) in places you want to be reactive.
 
 ```js
-define("not-reactive", ({ attr }) => p(attr("name")));
+define("not-reactive", ({ attr }) => p(`Hello ${attr("name").val}`));
 
-define("very-reactive", ({ attr }) => p(() => attr("name")));
+define("very-reactive", ({ attr }) => p(() => `Hello ${attr("name").val}`));
 ```
 
 :::
 
 ## Attribute reactivity
 
-First I'll let in on a little secret: you can create Van Elements from other Van Elements :tada:
-
-```javascript
-define("my-parent", () =>
-  p(
-    van.tags["my-element"]() // I am a custom element inside VanJS!  // [!code highlight]
-  )
-);
-```
-
-We can provide attributes to our previous `attributes-demo` just like we would a normal HTML tag. The `attr` method will make them reactive to changes.
+The `State` obtained from `attr()` is reactive to attribute change. This is useful when nesting Van Elements inside other Van Elements 🤯
 
 <<< @/components.ts#observed {javascript}
 
 ```html
-<observed-parent></observed-parent>
+<attribute-parent></attribute-parent>
 ```
 
 <fieldset>
     <legend>Result</legend>
-    <observed-parent></observed-parent>
+    <attribute-parent></attribute-parent>
 </fieldset>
 
 ::: tip Note
 
-You can use `kebab-case-attributes` on HTML elements.
+You can use `kebab-case-attributes`.
 
 ```js
 const element = van.tags["some-element"]({ "data-text": "hello" });
@@ -68,6 +61,6 @@ Resulting HTML:
 <some-element data-text="hello"></some-element>
 ```
 
-However you cannot use `camelCaseAttributes` :pleading_face: HTML won't be happy and will turn them into lowercase.
+However you cannot use `camelCaseAttributes` :pleading_face: it is not valid HTML syntax and will be turned into lowercase by the browser.
 
 :::
