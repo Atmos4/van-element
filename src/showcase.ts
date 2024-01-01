@@ -44,7 +44,9 @@ define("font-preview", ({ attr }) =>
   span(
     {
       style: () =>
-        `font-size: ${Number(attr("size")) / 8}em; color: ${attr("color")};`,
+        `font-size: ${Number(attr("size", 12).val) / 8}em; color: ${
+          attr("color", "red").val
+        };`,
     },
     slot()
   )
@@ -117,7 +119,7 @@ define("demo-component", () => {
         option({ value: c }, c)
       )
     ),
-    div(van.tags["font-preview"]({ size: size, color: color }, "Hello 🍦VanJS"))
+    div(van.tags["font-preview"]({ size: size, color: color }, slot()))
   );
 });
 

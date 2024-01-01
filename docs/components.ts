@@ -53,10 +53,14 @@ define("mini-game", () => {
 // #endregion minigame
 
 // #region attributes
-define(
-  "attributes-demo",
-  ({ attr }) => p("Hello ", attr("name"))
-  // matches the value of attribute "name"
+define("attributes-demo", ({ attr }) =>
+  p(
+    "Hello ",
+    attr(
+      "name", // attribute name // [!code highlight]
+      "Max" // optional default value // [!code highlight]
+    )
+  )
 );
 // #endregion attributes
 
@@ -69,22 +73,18 @@ define("my-parent", () =>
 // #endregion composition
 
 // #region observed
-define("observed-demo", ({ attr }) =>
-  p(
-    "Hello ",
-    () => attr("name") // This needs to be a derived state // [!code highlight]
-  )
-);
+define("reactive-attribute", ({ attr }) => p("Hello ", attr("name")));
 
-define("observed-parent", () => {
+define("attribute-parent", () => {
   const name = van.state("John");
   return p(
+    "Type your name: ",
     input({
       type: "text",
       value: name,
       oninput: (e) => (name.val = e.target.value),
     }),
-    van.tags["observed-demo"]({ name }) // Shorthand for { name: name } // [!code highlight]
+    van.tags["reactive-attribute"]({ name }) // nested Van Element // [!code highlight]
   );
 });
 // #endregion observed

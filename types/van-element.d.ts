@@ -1,7 +1,8 @@
 import { State, ChildDom } from "vanjs-core";
 
 export type ElementProps = {
-  attr: (name: string) => string;
+  /** Get the value of an attribute */
+  attr: (name: string, defaultValue?: string | number) => State<string>;
   /** Registers a callback that is called when the element connects to the DOM */
   mount: (
     /** Callback when the element connects to the DOM

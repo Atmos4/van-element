@@ -18,8 +18,8 @@ function define(name, element, shadow = true) {
         van.add(
           shadow ? this.attachShadow({ mode: "open" }) : this,
           element({
-            attr: (a) =>
-              (this.attrs[a] ??= van.state(this.getAttribute(a))).val,
+            attr: (a, v) =>
+              (this.attrs[a] ??= van.state(this.getAttribute(a) ?? v)),
             mount: (m) => (mount = m),
             $this: this,
           })

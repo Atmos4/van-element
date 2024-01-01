@@ -45,10 +45,13 @@
   <theme-switch></theme-switch>
   <h4>Dynamic attribute injection</h4>
   <p>Here is
-    <font-preview size="6" color="orange" data-loading="true">a Van Element in HTML</font-preview>
+    <font-preview size="6" color="orange">a Van Element with attributes!</font-preview>
+  </p>
+  <p>(Attributes can have
+    <font-preview>default values</font-preview>)
   </p>
   <p>It can be used inside other Van Elements:</p>
-  <demo-component></demo-component>
+  <demo-component>Reactive to attribute change! 🎉</demo-component>
 
   <h4>Mount and dismount</h4>
   <mount-showcase></mount-showcase>
@@ -72,7 +75,7 @@
       slot to another element!</p>
     <article>
       <p>The slotted content can be any HTML element or custom element, including Van Elements.</p>
-      <font-preview size="12" color="cyan">Let's reuse some elements as an example</font-preview>
+      <p><font-preview size="12" color="cyan">Let's reuse some elements as an example</font-preview></p>
       <custom-modal>
         <button slot="open-button">Look, another modal</button>
         <p>I am another custom modal. Same component, but reused!</p>
