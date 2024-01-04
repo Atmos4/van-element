@@ -1,11 +1,9 @@
-# Getting started
+# Installation
 
 In order to use Van Elements, you will need:
 
 - Some understanding of Web Components ([Web Components MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).)
 - Basic knowledge of VanJS syntax ([VanJS docs](https://vanjs.org/))
-
-## Install
 
 ### Package manager
 

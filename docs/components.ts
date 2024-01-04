@@ -1,7 +1,120 @@
-import van from "vanjs-core";
+import van, { State } from "vanjs-core";
 import { define } from "../src/van-element";
 
-const { button, div, h2, i, input, p, pre, slot } = van.tags;
+const { button, div, h2, i, input, p, pre, slot, span, style } = van.tags;
+
+// Tutorial
+
+// #region isolatedStyles
+define("hello-world", ({ attr }) => {
+  const color = attr("color", "red");
+  const size = attr("size", "20px");
+  return [
+    // Styles won't leak out! // [!code highlight:2]
+    style(() => `*{color:${color.val};font-size:${size.val}}`),
+    span(slot()),
+  ];
+});
+// #endregion isolatedStyles
+
+// #region tuto4
+const RangePicker = (min: number, max: number, value: State<number>) =>
+  input({
+    type: "range",
+    min,
+    max,
+    value,
+    oninput: (e) => (value.val = e.target.value),
+  });
+
+define("tutorial-wrapper", () => {
+  const color = van.state(0);
+  const size = van.state(20);
+  return div(
+    div("Hue: ", RangePicker(0, 360, color), () => ` ${color.val}deg`),
+    div("Size: ", RangePicker(20, 40, size), () => ` ${size.val / 20}em`),
+    p(
+      van.tags["hello-world"](
+        {
+          color: () => `hsl(${color.val} 100% 50%)`,
+          size: () => `${size.val / 20}em`,
+        },
+        slot()
+      )
+    )
+  );
+});
+// #endregion tuto4
+
+// #region tuto5
+define("computed-size", ({ attr }) => {
+  const color = attr("color", "red");
+  const size = attr("size", "20px");
+  const dom = slot();
+  return [
+    style(
+      () => `
+      * {
+        color: ${color.val};
+        font-size: ${size.val};
+      }
+    `
+    ),
+    span(dom),
+    window.getComputedStyle(dom, null).fontSize,
+  ];
+});
+// #endregion tuto5
+
+// #region tuto5fixed
+define("computed-size-fixed", ({ attr, mount }) => {
+  const color = attr("color", "red");
+  const size = attr("size", "20px");
+  const dom = slot();
+  const computedFontSize = van.state(""); // [!code ++:4]
+  mount(() => {
+    computedFontSize.val = window.getComputedStyle(dom, null).fontSize;
+  });
+  return [
+    style(
+      () => `
+      * {
+        color: ${color.val};
+        font-size: ${size.val};
+      }
+    `
+    ),
+    span(dom),
+    computedFontSize,
+  ];
+});
+// #endregion tuto5fixed
+
+// #region selfReference
+define("final-element", ({ attr, mount, $this }) => {
+  if ($this.childElementCount || !$this.innerHTML.trim())
+    return span({ style: "color:red" }, "ERROR - only text allowed");
+  const color = attr("color", "red");
+  const size = attr("size", "20px");
+  const dom = slot();
+  const computedFontSize = van.state("");
+  mount(() => {
+    computedFontSize.val = window.getComputedStyle(dom, null).fontSize;
+  });
+  return [
+    style(
+      () => `
+      * {
+        color: ${color.val};
+        font-size: ${size.val};
+      }
+    `
+    ),
+    span(dom),
+    computedFontSize,
+  ];
+});
+// #endregion selfReference
 
 // #region getstarted
 define("custom-element", () =>
@@ -11,6 +124,10 @@ define("custom-element", () =>
   )
 );
 // #endregion getstarted
+
+// #region shadowButton
+define("shadow-button", () => button("Shadow DOM"));
+// #endregion shadowButton
 
 // #region basic
 define("custom-counter", () => {
@@ -51,6 +168,10 @@ define("mini-game", () => {
   );
 });
 // #endregion minigame
+
+// #region fontPreview
+
+// #endregion fontPreview
 
 // #region attributes
 define("attributes-demo", ({ attr }) =>
@@ -120,3 +241,37 @@ define("mount-showcase", ({ mount }) => {
   return div(dom, pre("Items in slot - ", slotCount));
 });
 // #endregion mountShowcase
+
+// Styles
+
+// #region inlineStyles
+define("inline-styles", () => p({ style: "color:red" }, "I am red"));
+// #endregion inlineStyles
+
+// #region styleTag
+define("style-tag", () => [
+  style(`
+    p {
+      color: red;
+    }
+    ::slotted(p) {
+      color: orange;
+    }
+  `),
+  slot(),
+  p("Paragraph in Shadow DOM"),
+]);
+// #endregion styleTag
+
+// #region adoptedStyle
+define("adopted-style", ({ $this }) => {
+  const css = new CSSStyleSheet();
+  css.replaceSync(`
+    * {
+      color: orange;
+    }
+  `);
+  $this.shadowRoot?.adoptedStyleSheets.push(css);
+  return p(slot());
+});
+// #endregion adoptedStyle

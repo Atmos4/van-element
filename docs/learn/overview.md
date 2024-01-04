@@ -6,8 +6,8 @@ The core `define` method can take up to 3 arguments:
   Custom element tag.
 - `element`  
   VanJS functional component.
-- `shadow` : `boolean` (_optional, `true` by default_)  
-  Whether or not the custom element uses Shadow DOM.
+- `options` (_optional_)  
+  Extra [Shadow DOM options](./shadow-options).
 
 The provided VanJS method will be provided with 3 properties:
 

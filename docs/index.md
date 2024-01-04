@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /intro/getting-started
+      link: /intro/get-started
     - theme: alt
       text: VanJS docs
       link: https://vanjs.org/

@@ -19,7 +19,8 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Get started", link: "/intro/getting-started" },
+      { text: "Get started", link: "/intro/get-started" },
+      { text: "Tutorial", link: "/intro/tutorial" },
       { text: "Examples", link: "/examples" },
     ],
 
@@ -27,33 +28,25 @@ export default defineConfig({
       {
         text: "Introduction",
         base: "/intro/",
-        collapsed: false,
         items: [
-          { text: "Description", link: "description" },
-          { text: "Installation", link: "getting-started" },
-          { text: "Basic Usage", link: "basic-usage" },
+          { text: "Get started", link: "get-started" },
+          { text: "Installation", link: "installation" },
+          { text: "Tutorial", link: "tutorial" },
         ],
       },
-      { text: "Examples", link: "examples" },
       {
         text: "Learn",
         base: "/learn/",
-        collapsed: false,
         items: [
           { text: "Overview", link: "overview" },
           { text: "Attributes", link: "attributes" },
           { text: "Lifecycle", link: "lifecycle" },
-        ],
-      },
-      {
-        text: "Advanced",
-        base: "/advanced/",
-        collapsed: false,
-        items: [
           { text: "Slots", link: "slots" },
           { text: "Styles", link: "styles" },
+          { text: "Options", link: "shadow-options" },
         ],
       },
+      { text: "Examples", link: "examples" },
     ],
 
     socialLinks: [
