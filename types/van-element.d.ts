@@ -25,5 +25,5 @@ export declare const define: (
     /** Attributes of the custom element */
     attributes: ElementProps
   ) => ChildDom,
-  shadow?: boolean
+  options?: ShadowRootInit
 ) => void;

@@ -1,1 +1,1 @@
-export { define } from "../types/van-element";
+export * from "../types/van-element";

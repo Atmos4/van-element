@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-function define(name, element, shadow = true) {
+function define(name, element, options = { mode: "open" }) {
   window.customElements.define(
     name,
     class extends HTMLElement {
@@ -16,7 +16,7 @@ function define(name, element, shadow = true) {
       connectedCallback() {
         let mount;
         van.add(
-          shadow ? this.attachShadow({ mode: "open" }) : this,
+          options ? this.attachShadow(options) : this,
           element({
             attr: (a, v) =>
               (this.attrs[a] ??= van.state(this.getAttribute(a) ?? v)),
