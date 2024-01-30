@@ -12,6 +12,7 @@ export type ElementProps = {
   ) => void;
   /** Instance of the custom element */
   $this: HTMLElement;
+  children: ChildDom;
 };
 
 /**
@@ -25,5 +26,5 @@ export declare const define: (
     /** Attributes of the custom element */
     attributes: ElementProps
   ) => ChildDom,
-  options?: ShadowRootInit
+  options?: ShadowRootInit | false
 ) => void;

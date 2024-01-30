@@ -1,6 +1,14 @@
 # Styles
 
-There are several ways to style a Van Element
+There are several ways to style a Van Element.
+
+::: warning
+
+The Shadow DOM gets in the way very often, and is even one of the main reasons Web Components face skepticism from the Web development community.
+
+If you don't want isolated styles, you can just use Van Elements without the Shadow DOM!
+
+:::
 
 ## Inline styles
 
@@ -44,7 +52,7 @@ You can use the CSS selector `::slotted` to apply specific styles to the slotted
 
 ## Adopted stylesheets
 
-The third method revolves around creating a `CSSStyleSheet` and add it to the Shadow Root.
+This method revolves around creating a `CSSStyleSheet` and add it to the Shadow Root.
 
 <<< @/components.ts#adoptedStyle
 

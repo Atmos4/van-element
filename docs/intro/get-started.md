@@ -45,3 +45,16 @@ Thanks to the Shadow DOM, Van Elements benefit from style encapsulation and won'
 ### Control
 
 Van Elements can access the [custom element lifecycle](../learn/lifecycle) and manipulate Shadow DOM utilities like [slots](../learn/slots) to make it easier to build interactive components.
+
+## Web Components = 💩?
+
+> But why would I ever use Web Components? They are so hard to work with, I hate the Shadow DOM.
+
+The term `Web Components` is not a technical unity like React, but more of a concept regrouping two main APIs:
+
+- `custom elements`, the central part of Van Elements that enables hydration and lifecycle callbacks.
+- the `Shadow DOM`, a DOM and CSS isolation mechanism.
+
+Because the Shadow DOM isolates styles from the outside, it is very hard to work with when integrating with CSS frameworks, existing design systems or tools like Tailwind.
+
+Fortunately, **you can use Van Elements [without the Shadow DOM](../learn/shadow-options#disable-shadow-dom) and retain most of its benefits 🔥**

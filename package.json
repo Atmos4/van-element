@@ -2,7 +2,7 @@
   "name": "vanjs-element",
   "author": "Atmos4",
   "license": "MIT",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "description": "Web components with VanJS",
   "files": [
@@ -34,7 +34,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "vanjs-core": "^1.2.7"
+    "vanjs-core": "^1.2.8"
   },
   "devDependencies": {
     "gzip-size": "^7.0.0",

@@ -7,7 +7,6 @@ function define(name, element, options = { mode: "open" }) {
       constructor() {
         super();
         this.attrs = [];
-        this.dismount;
       }
       setAttribute(name, value) {
         super.setAttribute(name, value);
@@ -22,6 +21,7 @@ function define(name, element, options = { mode: "open" }) {
               (this.attrs[a] ??= van.state(this.getAttribute(a) ?? v)),
             mount: (m) => (mount = m),
             $this: this,
+            children: options ? van.tags.slot() : [...this.childNodes],
           })
         );
         this.dismount = mount?.();

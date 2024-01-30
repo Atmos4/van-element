@@ -1,9 +1,13 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   vanjs-core:
-    specifier: ^1.2.7
-    version: 1.2.7
+    specifier: ^1.2.8
+    version: 1.2.8
 
 devDependencies:
   chalk:
@@ -1232,8 +1236,8 @@ packages:
       unist-util-visit-parents: 6.0.1
     dev: true
 
-  /vanjs-core@1.2.7:
-    resolution: {integrity: sha512-NXZg+kf4OmhTTuTnBiCT6uRqeJiKmKSZLWxvGFmBl8Ho648J+GJZJAHB4cu40rcwJDJEH3Xwe8JjquMpa9zxEQ==}
+  /vanjs-core@1.2.8:
+    resolution: {integrity: sha512-YCyFLL8xwBs442qDHqJ8E0OU58fgag4+bVx16KUYJmDK9mopIlI0fFqizqjArauFPqPZ7iGXfjhQOddCnj0b9Q==}
     dev: false
 
   /vfile-location@5.0.2:

@@ -23,15 +23,13 @@ My first Van Element: <hello-world></hello-world>
 My first Van Element: <hello-world>Hello world</hello-world>
 </fieldset>
 
-## Slots
+## Slots and children
 
-Because they are Web components, Van Elements can use the `slot` tag as a way to inject children HTML elements.
-
-Let's add a `slot` to our Van Element:
+The first property you can use inside Van Elements is `children`. Under the hood, it's actually a `slot` tag!
 
 ```js
-define("hello-world", () =>
-  span({ style: "color:red;font-size:20px" }, slot())
+define("hello-world", ({ children }) =>
+  span({ style: "color:red;font-size:20px" }, children /* or slot() */)
 );
 ```
 
@@ -44,6 +42,10 @@ Cool discovery: <hello-world>the slot</hello-world>
 Cool discovery: <hello-world>the slot</hello-world>
 </fieldset>
 
+::: tip
+Because they are Web components, Van Elements can use the `slot` tag as a way to inject children HTML elements. [Learn more about slots here!](../learn/slots)
+:::
+
 ## Attributes
 
 It would be nice if we can change `color` and `font-size` from outside the Van Element, right?
@@ -51,7 +53,7 @@ It would be nice if we can change `color` and `font-size` from outside the Van E
 Meet the first property provided by Van Element: `attr()`. It takes an attribute name and an optional default value and returns a VanJS `State` object.
 
 ```js
-define("hello-world", ({ attr }) => {
+define("hello-world", ({ attr, children }) => {
   const color = attr(
     "color", // name of the attribute
     "red" // default value (optional)
@@ -59,7 +61,7 @@ define("hello-world", ({ attr }) => {
   const size = attr("size", 20);
   return span(
     { style: () => `color:${color.val};font-size:${size.val}` },
-    slot()
+    children
   );
 });
 ```
@@ -79,7 +81,7 @@ define("hello-world", ({ attr }) => {
 
 ## Isolated styles
 
-There is another way we can style our content instead of inline styles: by using `css` tagged template.
+There is another way we can style our content instead of inline styles: by using a `style` tag.
 
 Our Van Element is isolated in the Shadow DOM, so whatever we write in that inner style won't leak out to the rest of the page!
 
@@ -104,7 +106,7 @@ This tutorial is way too static. Let's add a bit of reactivity.
 
 Something nice about Van Elements is that you can reuse them... inside other Van Elements!
 
-As an example, let's build a way to demonstrate next iterations of the tutorial:
+As an example, let's build some handles for our Van Element:
 
 <<< @/components.ts#tuto4 {javascript}
 
