@@ -31,18 +31,23 @@
     "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "vanjs-core": "^1.2.8"
+    "vanjs-core": "^1.5.0"
   },
   "devDependencies": {
-    "gzip-size": "^7.0.0",
+    "@vitest/ui": "^1.4.0",
     "chalk": "^5.3.0",
+    "gzip-size": "^7.0.0",
+    "jsdom": "^24.0.0",
     "terser": "^5.26.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
-    "vitepress": "1.0.0-rc.32"
+    "vitepress": "1.0.0-rc.32",
+    "vitest": "^1.4.0"
   },
   "repository": {
     "type": "git",
