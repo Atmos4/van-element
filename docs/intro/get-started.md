@@ -30,19 +30,19 @@ Then this element can be used anywhere in HTML
 
 A Van Element leverages native custom elements to automatically hydrate HTML with VanJS reactivity. It retains all the [benefits from VanJS](https://vanjs.org/#why-vanjs) with a few extra ones:
 
-### Reusability
+- ### Reusability
 
 Once defined, Van Elements can be added, removed and reused anywhere in your HTML with a simple custom tag.
 
-### Portability
+- ### Portability
 
 Van Elements are standard Web Components that can work with any framework or templating language. You can use them in backend templating or inside frontend libraries like React, Vue or Svelte.
 
-### Isolation
+- ### Isolation
 
 Thanks to the Shadow DOM, Van Elements benefit from style encapsulation and won't conflict with existing styles or other Web Components.
 
-### Control
+- ### Control
 
 Van Elements can access the [custom element lifecycle](../learn/lifecycle) and manipulate Shadow DOM utilities like [slots](../learn/slots) to make it easier to build interactive components.
 
