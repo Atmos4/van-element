@@ -12,7 +12,6 @@ export type ElementProps = {
   ) => void;
   /** Instance of the custom element */
   $this: HTMLElement;
-  children: ChildDom;
 };
 
 /**

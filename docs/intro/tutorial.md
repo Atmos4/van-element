@@ -23,13 +23,15 @@ My first Van Element: <hello-world></hello-world>
 My first Van Element: <hello-world>Hello world</hello-world>
 </fieldset>
 
-## Slots and children
+## Slots
 
-The first property you can use inside Van Elements is `children`. Under the hood, it's actually a `slot` tag!
+Let's add children to our Van element. We can use the `slot` for this.
 
 ```js
-define("hello-world", ({ children }) =>
-  span({ style: "color:red;font-size:20px" }, children /* or slot() */)
+const { span, slot } = van.tags;
+
+define("hello-world", () =>
+  span({ style: "color:red;font-size:20px" }, slot())
 );
 ```
 
@@ -53,7 +55,7 @@ It would be nice if we can change `color` and `font-size` from outside the Van E
 Meet the first property provided by Van Element: `attr()`. It takes an attribute name and an optional default value and returns a VanJS `State` object.
 
 ```js
-define("hello-world", ({ attr, children }) => {
+define("hello-world", ({ attr }) => {
   const color = attr(
     "color", // name of the attribute
     "red" // default value (optional)
@@ -61,7 +63,7 @@ define("hello-world", ({ attr, children }) => {
   const size = attr("size", 20);
   return span(
     { style: () => `color:${color.val};font-size:${size.val}` },
-    children
+    slot()
   );
 });
 ```

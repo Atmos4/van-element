@@ -1,33 +1,45 @@
 import van from "vanjs-core";
 
+// Short prop names because class props are not minified.
 function define(name, element, options = { mode: "open" }) {
   window.customElements.define(
     name,
     class extends HTMLElement {
       constructor() {
         super();
-        this.attrs = [];
+        // Attributes
+        this.a = [];
       }
       setAttribute(name, value) {
         super.setAttribute(name, value);
-        this.attrs[name] && (this.attrs[name].val = value);
+        this.a[name] && (this.a[name].val = value);
       }
       connectedCallback() {
         let mount;
         van.add(
           options ? this.attachShadow(options) : this,
           element({
-            attr: (a, v) =>
-              (this.attrs[a] ??= van.state(this.getAttribute(a) ?? v)),
-            mount: (m) => (mount = m),
+            attr: (i, v) =>
+              (this.a[i] ??= van.state(this.getAttribute(i) ?? v)),
+            mount: (newMount) => {
+              let currentMount = mount;
+              mount = () => {
+                let currentDismount = currentMount?.();
+                let newDismount = newMount();
+                return () => {
+                  currentDismount?.();
+                  newDismount?.();
+                };
+              };
+            },
             $this: this,
-            children: options ? van.tags.slot() : [...this.childNodes],
           })
         );
-        this.dismount = mount?.();
+        // Dismount
+        this.d = mount?.();
       }
       disconnectedCallback() {
-        this.dismount?.();
+        this.d?.();
       }
     }
   );

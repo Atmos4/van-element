@@ -1,7 +1,8 @@
 import van, { State } from "vanjs-core";
 import { define } from "../src/van-element";
 
-const { button, div, h2, i, input, p, pre, slot, span, style } = van.tags;
+const { button, dialog, div, h2, i, input, p, pre, slot, span, style } =
+  van.tags;
 
 // Tutorial
 
@@ -275,3 +276,50 @@ define("adopted-style", ({ $this }) => {
   return p(slot());
 });
 // #endregion adoptedStyle
+
+// EXAMPLES
+
+// #region confirmationModal
+define("confirmation-modal", ({ attr, $this }) => {
+  const confirmLabel = attr("confirm");
+  const cancelLabel = attr("cancel", "Close");
+  const onConfirm = () => {
+    modal.close();
+    $this.dispatchEvent(new Event("submit"));
+  };
+  const modal = dialog(
+    div({ class: "mainContent" }, slot()),
+    div(
+      { class: "actions" },
+      button({ onclick: () => modal.close() }, cancelLabel),
+      () => confirmLabel.val && button({ onclick: onConfirm }, confirmLabel.val)
+    )
+  );
+  return [
+    slot({ name: "trigger", onclick: () => modal.showModal() }),
+    modal,
+    // Some styles
+    style(`
+      dialog{
+        padding: 2rem;
+      }
+      dialog::backdrop{
+        backdrop-filter:blur(5px);
+      }
+      .mainContent{
+        text-align: center;
+      }
+      .actions{
+        display: flex;
+        justify-content: space-around;
+      }
+      button{
+        border:1px solid;
+        font: inherit;
+        padding: .5rem 1rem;
+        background: transparent;
+        cursor: pointer;
+      }`),
+  ];
+});
+// #endregion confirmationModal

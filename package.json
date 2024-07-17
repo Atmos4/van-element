@@ -2,7 +2,7 @@
   "name": "vanjs-element",
   "author": "Atmos4",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "Web components with VanJS",
   "files": [

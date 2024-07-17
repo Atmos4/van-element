@@ -26,15 +26,13 @@ define(
 Things that will **stop working**:
 
 - DOM and style isolation
-- named slots
+- slots
 
 Everything else **will work the exact same**, including:
 
-- `$this`, `mount`, `attr` and `children`
+- `$this`, `mount`, `attr`
 - all VanJS logic
 - hydration and reusability
-
-Additionally, you can use the `children` prop as a replacement for the default `slot` (similar to React).
 
 ## Shadow DOM or not?
 
@@ -42,9 +40,9 @@ Additionally, you can use the `children` prop as a replacement for the default `
 
 - All you want is easy hydration
 - Isolation gets in the way
-- You don't need named slots
+- You don't need slots
 
 **You _should not_ disable it if:**
 
 - You are building isolated components (component library, design system)
-- You need named slots for more complex logic
+- You need slots for composition

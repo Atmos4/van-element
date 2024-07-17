@@ -13,8 +13,6 @@ const {
   div,
   p,
   pre,
-  details,
-  summary,
 } = van.tags;
 
 define("theme-switch", () => {
@@ -218,9 +216,3 @@ define("tab-panel", ({ mount, $this }) => {
     div(tabButtons, div({ id: "tab-area" }, tabContent)),
   ];
 });
-
-define(
-  "light-dom",
-  ({ children }) => details(summary("Details"), children),
-  false
-);

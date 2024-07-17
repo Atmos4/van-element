@@ -2,20 +2,27 @@ import van from "vanjs-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { define } from "../src/van-element";
 
-const { button, div } = van.tags;
+const { button, div, slot } = van.tags;
 
 const mountFn = vi.fn();
 const unmountFn = vi.fn();
+const secondMount = vi.fn();
+const secondUnmount = vi.fn();
 const clickFn = vi.fn();
 
-define("internals-test", ({ attr, $this, children, mount }) => {
+define("internals-test", ({ attr, $this, mount }) => {
   const attribute = attr("attribute", "default");
 
   const count = van.state(0);
 
   mount(() => {
     mountFn();
-    return () => unmountFn();
+    return unmountFn;
+  });
+
+  mount(() => {
+    secondMount();
+    return secondUnmount;
   });
 
   const onClick = () => {
@@ -26,7 +33,7 @@ define("internals-test", ({ attr, $this, children, mount }) => {
   return [
     div("Attribute: ", attribute),
     button({ onclick: () => onClick() }, "Count: ", count),
-    children,
+    slot(),
   ];
 });
 
@@ -83,9 +90,18 @@ describe("check that a Van Element", async () => {
     expect(spyClick).toHaveBeenCalled();
   });
 
-  it("has a slot as children", () => {
+  it("has a main slot", () => {
     mountComponent("Bob", "Hi mom");
     const slotted = queryInShadow("slot")?.assignedNodes();
     expect(slotted?.[0].textContent).toContain("Hi mom");
+  });
+
+  it("multiple mount callbacks", () => {
+    mountComponent();
+    expect(mountFn).toHaveBeenCalled();
+    expect(secondMount).toHaveBeenCalled();
+    getComponent()!.remove();
+    expect(unmountFn).toHaveBeenCalled();
+    expect(secondUnmount).toHaveBeenCalled();
   });
 });
