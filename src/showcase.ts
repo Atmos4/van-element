@@ -216,3 +216,5 @@ define("tab-panel", ({ mount, $this }) => {
     div(tabButtons, div({ id: "tab-area" }, tabContent)),
   ];
 });
+
+define("light-dom", () => p("I am in the light!"));
