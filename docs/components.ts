@@ -146,7 +146,7 @@ define("custom-counter", () => {
 // #region minigame
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Run = ({ sleepMs }: { sleepMs: number }) => {
+const Run = (sleepMs: number) => {
   const steps = van.state(0);
   (async () => {
     for (; steps.val < 40; ++steps.val) await sleep(sleepMs);
@@ -157,18 +157,22 @@ const Run = ({ sleepMs }: { sleepMs: number }) => {
   );
 };
 
-define("mini-game", () => {
+const Hello = () => {
   const dom = div();
   return p(
     dom,
-    button({ onclick: () => van.add(dom, Run({ sleepMs: 2000 })) }, "Hello 🐌"),
-    button({ onclick: () => van.add(dom, Run({ sleepMs: 500 })) }, "Hello 🐢"),
-    button({ onclick: () => van.add(dom, Run({ sleepMs: 100 })) }, "Hello 🚶‍♂️"),
-    button({ onclick: () => van.add(dom, Run({ sleepMs: 10 })) }, "Hello 🏎️"),
-    button({ onclick: () => van.add(dom, Run({ sleepMs: 2 })) }, "Hello 🚀")
+    button({ onclick: () => van.add(dom, Run(2000)) }, "Hello 🐌"),
+    button({ onclick: () => van.add(dom, Run(500)) }, "Hello 🐢"),
+    button({ onclick: () => van.add(dom, Run(100)) }, "Hello 🚶‍♂️"),
+    button({ onclick: () => van.add(dom, Run(10)) }, "Hello 🏎️"),
+    button({ onclick: () => van.add(dom, Run(2)) }, "Hello 🚀")
   );
-});
+};
 // #endregion minigame
+
+// #region minigameBind
+define("vanjs-game", Hello);
+// #endregion minigameBind
 
 // #region fontPreview
 

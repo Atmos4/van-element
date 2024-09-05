@@ -67,6 +67,22 @@ Now, thanks to the power of custom element reusability, we can reuse that confir
 
 ## 2. Normal VanJS code
 
-Van Element is just a way to hydrate VanJS. So you could simply take your VanJS code and bind it to a custom element tag, and Van Element will put it in the DOM for you!
+Van Element is just a way to hydrate VanJS. So we could simply take our VanJS code and bind it to a custom element tag, and Van Element will put it in the DOM for us!
 
-As an example, let's shamefully take
+As an example, let's shamefully take the Hello world program from VanJS's home page 🙃
+
+::: details Code
+<<< @/components.ts#minigame {typescript}
+:::
+
+In order to hydrate this into the DOM, we just have to bind that VanJS function to a custom element tag:
+
+<<< @/components.ts#minigameBind {javascript}
+
+Now we can just slap that custom element anywhere in our HTML 🎉
+
+```html
+<vanjs-game></vanjs-game>
+```
+
+<vanjs-game></vanjs-game>
