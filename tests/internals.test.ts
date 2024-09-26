@@ -1,14 +1,16 @@
 import van from "vanjs-core";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, jest, mock } from "bun:test";
 import { define } from "../src/van-element";
+import { useFakeTimers } from "sinon";
 
 const { button, div, slot } = van.tags;
 
-const mountFn = vi.fn();
-const unmountFn = vi.fn();
-const secondMount = vi.fn();
-const secondUnmount = vi.fn();
-const clickFn = vi.fn();
+const mountFn = mock();
+const unmountFn = mock();
+const secondMount = mock();
+const secondUnmount = mock();
+const clickFn = mock();
+const fakeTimer = useFakeTimers();
 
 define("internals-test", ({ attr, $this, mount }) => {
   const attribute = attr("attribute", "default");
@@ -38,39 +40,24 @@ define("internals-test", ({ attr, $this, mount }) => {
 });
 
 describe("check that a Van Element", async () => {
-  function getComponent() {
-    return document.body.querySelector("internals-test");
-  }
-
-  function queryInShadow<K extends keyof HTMLElementTagNameMap>(
-    selector: K
-  ): HTMLElementTagNameMap[K] | null | undefined {
-    return getComponent()?.shadowRoot?.querySelector(selector);
-  }
-
-  function mountComponent(name = "Peter", children = "") {
-    document.body.innerHTML = `<internals-test attribute="${name}">${children}</internals-test>`;
-  }
-
   beforeEach(() => {
-    // Because VanJS uses setTimeout() to queue procedures in the event loop, we need to fake that otherwise the updates don't render.
-    vi.useFakeTimers();
-    vi.clearAllMocks();
+    fakeTimer.reset();
+    jest.clearAllMocks();
   });
 
   it("has VanJS behavior", async () => {
     mountComponent();
     queryInShadow("button")?.click();
     expect(clickFn).toHaveBeenCalled();
-    vi.runAllTimers();
+    await flushUpdates();
     expect(queryInShadow("button")?.textContent).toContain("1");
   });
 
-  it("has attribute reactivity", () => {
+  it("has attribute reactivity", async () => {
     mountComponent("Jack");
     expect(queryInShadow("div")?.textContent).toContain("Jack");
     getComponent()!.setAttribute("attribute", "John");
-    vi.runAllTimers();
+    await flushUpdates();
     expect(queryInShadow("div")?.textContent).toContain("John");
   });
 
@@ -83,7 +70,7 @@ describe("check that a Van Element", async () => {
   });
 
   it("propagates events out", () => {
-    const spyClick = vi.fn();
+    const spyClick = mock();
     mountComponent();
     getComponent()!.addEventListener("count", spyClick);
     queryInShadow("button")?.click();
@@ -105,3 +92,22 @@ describe("check that a Van Element", async () => {
     expect(secondUnmount).toHaveBeenCalled();
   });
 });
+
+// helper functions
+function getComponent() {
+  return document.body.querySelector("internals-test");
+}
+
+function queryInShadow<K extends keyof HTMLElementTagNameMap>(
+  selector: K
+): HTMLElementTagNameMap[K] | null | undefined {
+  return getComponent()?.shadowRoot?.querySelector(selector);
+}
+
+function mountComponent(name = "Peter", children = "") {
+  document.body.innerHTML = `<internals-test attribute="${name}">${children}</internals-test>`;
+}
+
+async function flushUpdates() {
+  await fakeTimer.runAllAsync();
+}
