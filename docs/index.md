@@ -26,7 +26,7 @@ features:
     details: Reusable, isolated and framework-agnostic custom elements.
   - title: Lightweight and simple to use
     icon: 🌸
-    details: One utility method, 40 lines of code, 0.35kB.
+    details: One utility method, less than 300 bytes.
 ---
 
 <style>
