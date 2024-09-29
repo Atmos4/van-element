@@ -1,4 +1,4 @@
-import van, { State } from "vanjs-core";
+import van, { type State } from "vanjs-core";
 import { define } from "../src/van-element";
 
 const { button, dialog, div, h2, i, input, p, pre, slot, span, style } =
