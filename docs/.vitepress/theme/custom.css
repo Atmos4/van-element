@@ -2,6 +2,13 @@
   --vp-c-brand-1: var(--vp-c-red-1);
   --vp-c-brand-2: var(--vp-c-red-2);
   --vp-c-brand-3: var(--vp-c-red-3);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #ffd341,
+    #fe3434 100%
+  );
 }
 fieldset {
   padding: 0 20px 10px;

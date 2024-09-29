@@ -28,10 +28,3 @@ features:
     icon: 🌸
     details: One utility method, less than 300 bytes.
 ---
-
-<style>
-  :root{
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ffd341, #fe3434 100%);
-  }
-</style>
