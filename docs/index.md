@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: Van Element
-  text: Web Components with VanJS
-  tagline: Build reusable components with ease.
+  tagline: Build reusable VanJS components easily.
   actions:
     - theme: brand
       text: Get Started
@@ -20,11 +19,11 @@ hero:
 features:
   - icon: 🍦
     title: Build with VanJS
-    details: Use the smallest reactive UI framework in the world for fun and profit.
+    details: Reactivity in 1kB.
   - icon: ⚙️
-    title: The power of Web components
-    details: Reusable, isolated and framework-agnostic custom elements.
+    title: The power of custom elements
+    details: Reusable and framework-agnostic.
   - title: Lightweight and simple to use
     icon: 🌸
-    details: One utility method, less than 300 bytes.
+    details: One utility method, 300 bytes.
 ---

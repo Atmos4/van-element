@@ -1,6 +1,5 @@
 import { build } from "vite";
 import chalk from "chalk";
-import { promises as fs } from "fs";
 import { gzipSizeSync } from "gzip-size";
 import { minify } from "terser";
 
