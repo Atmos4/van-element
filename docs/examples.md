@@ -67,9 +67,9 @@ Now, thanks to the power of custom element reusability, we can reuse that confir
 
 ## 2. Normal VanJS code
 
-Van Element is just a way to hydrate VanJS. So we could simply take our VanJS code and bind it to a custom element tag, and Van Element will put it in the DOM for us!
+Van Element is just a way to hydrate VanJS. So we could simply take VanJS code and bind it to a custom element tag, and Van Element will put it in the DOM for us!
 
-As an example, let's shamefully take the Hello world program from VanJS's home page 🙃
+As an example, let's shamefully take the Hello world program from VanJS's home page 🤫
 
 ::: details Code
 <<< @/components.ts#minigame {typescript}
@@ -86,3 +86,10 @@ Now we can just slap that custom element anywhere in our HTML 🎉
 ```
 
 <vanjs-game></vanjs-game>
+
+As it is now, this component looks ugly because we did not style it. We have 2 solutions:
+
+- [Style it](./learn/styles) within the Shadow DOM. This will make our component truly isolated and reusable.
+- [Disable the Shadow DOM](./learn/shadow-options#disable-shadow-dom), and style it with external stylesheets. Our component will depend on those stylesheets and isn't truly reusable anymore, but we can now use our favorite CSS framework to make it look beautiful!
+
+**Choose whichever option you prefer**. People like to get emotional over the Shadow DOM, but in most cases it's not needed.
