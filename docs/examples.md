@@ -89,7 +89,7 @@ Now we can just slap that custom element anywhere in our HTML 🎉
 
 As it is now, this component looks ugly because we did not style it. We have 2 solutions:
 
-- [Style it](./learn/styles) within the Shadow DOM. This will make our component truly isolated and reusable.
+- [Style it](./advanced/styling) within the Shadow DOM. This will make our component truly isolated and reusable.
 - [Disable the Shadow DOM](./learn/shadow-options#disable-shadow-dom), and style it with external stylesheets. Our component will depend on those stylesheets and isn't truly reusable anymore, but we can now use our favorite CSS framework to make it look beautiful!
 
 **Choose whichever option you prefer**. People like to get emotional over the Shadow DOM, but in most cases it's not needed.
