@@ -21,6 +21,7 @@ export default defineConfig({
     nav: [
       { text: "Get started", link: "/intro/get-started" },
       { text: "Tutorial", link: "/intro/tutorial" },
+      { text: "Learn", link: "/learn/overview" },
       { text: "Examples", link: "/examples" },
     ],
 
@@ -41,9 +42,16 @@ export default defineConfig({
           { text: "Overview", link: "overview" },
           { text: "Attributes", link: "attributes" },
           { text: "Lifecycle", link: "lifecycle" },
-          { text: "Slots", link: "slots" },
-          { text: "Styles", link: "styles" },
           { text: "Options", link: "shadow-options" },
+        ],
+      },
+      {
+        text: "Advanced",
+        base: "/advanced/",
+        items: [
+          { text: "Slots", link: "slots" },
+          { text: "Shared state", link: "shared-state" },
+          { text: "Styling", link: "styling" },
         ],
       },
       { text: "Examples", link: "examples" },
