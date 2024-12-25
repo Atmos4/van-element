@@ -38,4 +38,4 @@ In your HTML:
 - automatic hydration of VanJS inside your HTML
 - reusable components without extra boilerplate
 - isolated styles and slots with Web components
-- only 40 lines of code (300b min+gzip)
+- extremely tiny (295B min+gzip)
