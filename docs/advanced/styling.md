@@ -1,4 +1,4 @@
-# Styles
+# Styling
 
 There are several ways to style a Van Element.
 
@@ -6,7 +6,7 @@ There are several ways to style a Van Element.
 
 The Shadow DOM gets in the way very often, and is even one of the main reasons Web Components face skepticism from the Web development community.
 
-If you don't want isolated styles, you can just use Van Elements without the Shadow DOM!
+If you don't want isolated styles, you can [use Van Elements without the Shadow DOM](../learn/shadow-options#disable-shadow-dom)!
 
 :::
 

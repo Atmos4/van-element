@@ -146,14 +146,13 @@ define("custom-counter", () => {
 // #region minigame
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Run = (sleepMs: number) => {
+const Run = (sleepMs: number, icon: string) => {
   const steps = van.state(0);
   (async () => {
     for (; steps.val < 40; ++steps.val) await sleep(sleepMs);
   })();
   return pre(
-    () =>
-      `${" ".repeat(40 - steps.val)}🚐💨Hello VanJS!${"_".repeat(steps.val)}`
+    () => `${" ".repeat(40 - steps.val)}${icon}${"_".repeat(steps.val)}`
   );
 };
 
@@ -161,11 +160,11 @@ const Hello = () => {
   const dom = div();
   return p(
     dom,
-    button({ onclick: () => van.add(dom, Run(2000)) }, "Hello 🐌"),
-    button({ onclick: () => van.add(dom, Run(500)) }, "Hello 🐢"),
-    button({ onclick: () => van.add(dom, Run(100)) }, "Hello 🚶‍♂️"),
-    button({ onclick: () => van.add(dom, Run(10)) }, "Hello 🏎️"),
-    button({ onclick: () => van.add(dom, Run(2)) }, "Hello 🚀")
+    button({ onclick: () => van.add(dom, Run(2000, "🐌")) }, "Hello 🐌"),
+    button({ onclick: () => van.add(dom, Run(500, "🐢")) }, "Hello 🐢"),
+    button({ onclick: () => van.add(dom, Run(100, "🚶‍♂️")) }, "Hello 🚶‍♂️"),
+    button({ onclick: () => van.add(dom, Run(10, "🏎️")) }, "Hello 🏎️"),
+    button({ onclick: () => van.add(dom, Run(2, "🚀")) }, "Hello 🚀")
   );
 };
 // #endregion minigame
@@ -327,3 +326,19 @@ define("confirmation-modal", ({ attr, $this }) => {
   ];
 });
 // #endregion confirmationModal
+
+// #region sharedState
+const sharedState = van.state(0);
+
+define("increment-state", () =>
+  button({ onclick: () => sharedState.val++ }, "Increment (", sharedState, ")")
+);
+
+define("display-state", () =>
+  div(
+    sharedState,
+    " ",
+    button({ onclick: () => (sharedState.val = 0) }, "Reset")
+  )
+);
+// #endregion sharedState

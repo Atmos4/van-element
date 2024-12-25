@@ -45,7 +45,7 @@ Cool discovery: <hello-world>the slot</hello-world>
 </fieldset>
 
 ::: tip
-Because they are Web components, Van Elements can use the `slot` tag as a way to inject children HTML elements. [Learn more about slots here!](../learn/slots)
+Because they are Web components, Van Elements can use the `slot` tag as a way to inject children HTML elements. [Learn more about slots here!](../advanced/slots)
 :::
 
 ## Attributes
@@ -183,4 +183,4 @@ We can access the reference of the Van Element using `$this`
 
 ## That's it!
 
-You have reached the end of the tutorial! Now you know basically everything there is to know about Van Elements. You can now freely explore the wonders of the Web Component world... or [disable the Shadow DOM](../learn/shadow-options) if you prefer!
+You have reached the end of the tutorial! Now you know basically everything there is to know about Van Elements. You can now freely explore the wonders of the Web Component world... or [disable the Shadow DOM](../learn/shadow-options#disable-shadow-dom) if you prefer!

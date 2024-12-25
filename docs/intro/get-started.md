@@ -44,7 +44,7 @@ Thanks to the Shadow DOM, Van Elements benefit from style encapsulation and won'
 
 - ### Control
 
-Van Elements can access the [custom element lifecycle](../learn/lifecycle) and manipulate Shadow DOM utilities like [slots](../learn/slots) to make it easier to build interactive components.
+Van Elements can access the [custom element lifecycle](../learn/lifecycle) and manipulate Shadow DOM utilities like [slots](../advanced/slots) to make it easier to build interactive components.
 
 ## Web Components = 💩?
 
